@@ -10,7 +10,6 @@ class DistPar{                     // distance and parent
         public DistPar(int pv, int d){       // constructor
             distance = d;
             parentVert = pv;
-           
         }
     }                                   // end class DistPar
 
@@ -45,7 +44,6 @@ class Graph {
 
         public void addEdge(int start, int end, int weight) {
             adjMat[start][end] = weight;     // (directed)
-            
         }
 
         public void path(){                               // find all shortest paths
@@ -60,50 +58,48 @@ class Graph {
             for(int j=0; j<nVerts; j++) {
                 int tempDist = adjMat[startTree][j];
                 sPath[j] = new DistPar(startTree, tempDist);
-                scan.close(); 
-                }
+                scan.close(); }
                                                             // until all vertices are in the tree
             while(nTree < nVerts) {
-                int indexMax = getMax();                  // get minimum from sPath
-                int maxDist = sPath[indexMax].distance;
-                if(maxDist == INFINITY)                   // if all infinite
+                int indexMin = getMin();                  // get minimum from sPath
+                int minDist = sPath[indexMin].distance;
+                if(minDist == INFINITY)                   // if all infinite
                     {                                     // or in tree,
                         System.out.println("There are unreachable vertices");
                     break;                                    // sPath is complete
                     }
-//                else
-//
-////                {                                              // reset currentVert
-//                    currentVert = indexMax;                  // to closest vert
-//                    startToCurrent = sPath[indexMax].distance;
-//                                                                     // minimum distance from startTree is
-//                                                                     // to currentVert, and is startToCurrent
-//                }
-//                                                                       // put current vertex in tree
-//                vertexList[currentVert].isInTree = true;
-//                nTree++;
-//                adjust_sPath();                             // update sPath[] array
+                else
+
+                {                                              // reset currentVert
+                    currentVert = indexMin;                  // to closest vert
+                    startToCurrent = sPath[indexMin].distance;
+                                                                     // minimum distance from startTree is
+                                                                     // to currentVert, and is startToCurrent
+                }
+                                                                       // put current vertex in tree
+                vertexList[currentVert].isInTree = true;
+                nTree++;
+                adjust_sPath();                             // update sPath[] array
             }                                               // end while(nTree<nVerts)
 
             displayPaths();                                // display sPath[] contents
             nTree = 0;                                     // clear tree
             for(int j=0; j<nVerts; j++)
                 vertexList[j].isInTree = false;
-           
         }                                                 // end path()
 
-        public int getMax() {                                // get entry from sPath with minimum distance
-            int maxDist = INFINITY;                        // assume minimum
-            int indexMax = 0;
+        public int getMin() {                                // get entry from sPath with minimum distance
+            int minDist = INFINITY;                        // assume minimum
+            int indexMin = 0;
 
-//            for(int j=1; j<nVerts; j++){                      // for each vertex, if its in tree and smaller than old one
-//
-//                if( !vertexList[j].isInTree && sPath[j].distance <maxDist ){
-//                    maxDist = sPath[j].distance;
-//                    indexMax = j;                        // update minimum
-//                }
-//            }                                             // end for
-            return indexMax;                            // return index of minimum
+            for(int j=1; j<nVerts; j++){                      // for each vertex, if it’s in tree and smaller than old one
+
+                if( !vertexList[j].isInTree && sPath[j].distance < minDist ){
+                    minDist = sPath[j].distance;
+                    indexMin = j;                        // update minimum
+                }
+            }                                             // end for
+            return indexMin;                            // return index of minimum
 
         }                                           // end getMin()
 
@@ -124,10 +120,9 @@ class Graph {
                                                                       // add distance from start
                 int startToFringe = startToCurrent + currentToFringe;
                                                                       // get distance of current sPath entry
-//                int sPathDist = sPath[column].distance;
+                int sPathDist = sPath[column].distance;
                                                                        // compare distance from start with sPath entry
-//                if(startToFringe < sPathDist)                         // if shorter,
-                	
+                if(startToFringe < sPathDist)                         // if shorter,
                 {
                                                                        // update sPath
                     sPath[column].parentVert = currentVert;
