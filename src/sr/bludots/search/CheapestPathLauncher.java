@@ -1,4 +1,4 @@
-package sr.unasat.search;
+package sr.bludots.search;
 
 	import java.util.Scanner;
 

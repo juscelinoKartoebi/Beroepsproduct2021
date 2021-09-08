@@ -1,4 +1,4 @@
-package sr.unasat.search;
+package sr.bludots.search;
 
 /* Hier is een app die de shortest route/path gaat bijhouden van het startpunt naar de eindbestemming dmv een array.
  * Er zijn een aantal cities(vertices) met een weight(afstand) die directed geconnect zijn aan elkaar(edges)
